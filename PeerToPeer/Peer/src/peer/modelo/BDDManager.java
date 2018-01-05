@@ -5,14 +5,14 @@ package peer.modelo;
  * @author vladimir
  */
 import java.sql.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+/*import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;*/
 
 public class BDDManager {
 
     private final String DR = "jdbc:postgresql://localhost:5432/ViUcab";
 
-    private Log log = LogFactory.getLog(BDDManager.class);
+    //private Log log = LogFactory.getLog(BDDManager.class);
     private Connection con=null;
     private Statement stmt=null;
     private ResultSet rs=null;
@@ -24,10 +24,10 @@ public class BDDManager {
             stmt = con.createStatement();
         }
         catch (ClassNotFoundException e){
-            log.error(e);
+            //log.error(e);
         }
         catch (SQLException ex){
-            log.error(ex);
+            //log.error(ex);
         }
     }
     public String query (){
