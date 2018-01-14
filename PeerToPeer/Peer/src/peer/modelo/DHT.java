@@ -10,8 +10,30 @@ import peer.modelo.Nodo;
  */
 public class DHT {
     private List<Nodo> nodos = DHTPrueba();
+
+    public List<Nodo> getNodos() {
+        return nodos;
+    }
+
+    public void setNodos(List<Nodo> nodos) {
+        this.nodos = nodos;
+    }
     
-    public List<Nodo> orderTable (Nodo nuevo){
+    
+    public List<Nodo> orderTableDelete (Nodo viejo){
+        if((nodos.indexOf(viejo)==0)||(nodos.indexOf(viejo)==nodos.size()-1)){
+        nodos.remove(viejo);
+        nodos.get(0).setPredecesor(nodos.get(nodos.size()-1).getHash_id());
+        nodos.get(nodos.size()-1).setSucesor(nodos.get(0).getHash_id());
+        }
+        else{
+            nodos.get(nodos.indexOf(viejo)-1).setSucesor(viejo.getSucesor());
+            nodos.get(nodos.indexOf(viejo)+1).setPredecesor(viejo.getPredecesor());
+            nodos.remove(viejo);
+        }
+        return nodos;
+    }
+    public List<Nodo> orderTableInsert (Nodo nuevo){
         if ((nodos.get(nodos.size()-1).getHash_id()<nuevo.getHash_id())||(nodos.get(0).getHash_id()>nuevo.getHash_id())){
                 nuevo.setSucesor(nodos.get(0).getHash_id());
                 nuevo.setPredecesor(nodos.get(nodos.size()-1).getHash_id());
@@ -47,7 +69,10 @@ public class DHT {
         return lista;
     }
     public void imprimirTabla(List<Nodo> lista){
+            System.out.println("N" + " " + "NODO" + " " + "ANT" + " " + "SIG");
+            System.out.println();
         for(int i = 0;i <= lista.size()-1;i++){
+            
             System.out.println(i + " " + lista.get(i).getHash_id() + " " + lista.get(i).getPredecesor() + " " + lista.get(i).getSucesor());
             System.out.println();
         }

@@ -1,5 +1,6 @@
 package peer.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,12 +11,16 @@ public class Nodo {
     private int hash_id;
     private int sucesor;
     private int predecesor;
-    private List<Recurso> recursos;
+    private List<Recurso> recursos = new ArrayList<Recurso>();
     
     public Nodo(int hash, int suc, int pre){
         hash_id = hash;
         sucesor = suc;
         predecesor = pre;
+        cargarRecursos();
+    }
+    public Nodo(int hash){
+        hash_id = hash;
     }
 
     public int getHash_id() {
@@ -49,5 +54,15 @@ public class Nodo {
     public void setSucesor(int sucesor) {
         this.sucesor = sucesor;
     }
-    
+    public void cargarRecursos(){
+        BDDManager bdd = new BDDManager();
+        String [] rscs = bdd.listarArchivos();
+        for (int i = 0; i<rscs.length; i++){
+            if(!rscs[i].isEmpty()){
+            Recurso recurso = new Recurso(rscs[i].hashCode(),rscs[i],hash_id);
+            recursos.add(recurso);
+            }
+        }
+        //return recursos;
+    }
 }
