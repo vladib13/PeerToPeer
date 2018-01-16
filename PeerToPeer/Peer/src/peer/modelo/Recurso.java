@@ -8,25 +8,20 @@ package peer.modelo;
  *
  * @author vladimir
  */
-public class Recurso {
-    private int hash;
+public class Recurso extends RingNodo{
+    
     private String nombre;
     private int hashPropietario;
-    
-    public Recurso(int hash, String nombre, int hashPropietario){
-        this.hash = hash;
+    public Recurso(String nombre, int hashPropietario){
+        this.hash_id = hashear(nombre);
         this.hashPropietario = hashPropietario;
-        this.nombre = nombre;
+        this.identifier = nombre;
+        tipoNodo = "Recurso";
     }
+    
+    
 
-    public int getHash() {
-        return hash;
-    }
-
-    public void setHash(int hash) {
-        this.hash = hash;
-    }
-
+    
     public int getHashPropietario() {
         return hashPropietario;
     }
@@ -42,5 +37,14 @@ public class Recurso {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+    public int hashear(String h){
+        int hash =0;
+        if (String.valueOf(h.hashCode()).contains("-")){
+            hash = Integer.parseInt(String.valueOf(h.hashCode()).substring(1));
+        }
+        else{
+            hash = h.hashCode();
+        }
+        return hash;
+    }
 }

@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import peer.controlador.ControladorPeer;
 import peer.modelo.*;
 
 /**
@@ -18,8 +19,8 @@ public class Peer {
    
     public static void main(String[] args) {
         try {
-            ConnectionManager con = new ConnectionManager();
-            con.serve();
+            ControladorPeer cont = new ControladorPeer();
+            
             //System.out.println(sc.getInetAddress().getCanonicalHostName());
             
            /*Nodo node = new Nodo(4444,5555,3333);
@@ -37,7 +38,7 @@ public class Peer {
             tabla.imprimirTabla(tabla.getNodos());
             List<Nodo> lista = tabla.orderTableDelete(tabla.getNodos().get(1));
             tabla.imprimirTabla(lista);*/
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Peer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
